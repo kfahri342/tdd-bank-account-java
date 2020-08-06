@@ -28,5 +28,22 @@ public class AccountTest {
         account.deposit(20);
         assertThat(account.balance()).isEqualTo(30);
     }
+
+    @Test
+    public void withdrawAnAmountShouldDecreaseTheBalance(){
+        Account account = new Account();
+        account.withdraw(15);
+        assertThat(account.balance()).isEqualTo(-15);
+
+    }
+
+    @Test
+    public void multipleWithdrawAndDepositsShouldReflectInTheBalance(){
+        Account account = new Account();
+        account.deposit(50);
+        account.deposit(10);
+        account.withdraw(40);
+        assertThat(account.balance()).isEqualTo(20);
+    }
 }
 
