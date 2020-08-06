@@ -4,36 +4,45 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class AccountTest {
+    private final Account account = new Account();
 
     @Test
     public void newAccountShouldHaveZeroBalance() {
-        Account account = new Account();
         assertThat(account.balance()).isEqualTo(0);
-
     }
 
     @Test
     public void depositAnAmountShouldIncreaseTheBalance(){
-        Account account = new Account();
         account.deposit(10);
         assertThat(account.balance()).isEqualTo(10);
     }
 
     @Test
     public void depositMultipleDepositsShouldIncreaseTheBalance(){
-        Account account = new Account();
         account.deposit(10);
         account.deposit(20);
         assertThat(account.balance()).isEqualTo(30);
     }
 
     @Test
+    public void withdrawalFromEmptyAccountShouldNotBeAllowed(){
+        try {
+            account.withdraw(1);
+            fail("Expected exception");
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    @Test
     public void withdrawAnAmountShouldDecreaseTheBalance(){
-        Account account = new Account();
-        account.withdraw(15);
-        assertThat(account.balance()).isEqualTo(-15);
+        account.deposit(10);
+        account.withdraw(7);
+        assertThat(account.balance()).isEqualTo(3);
 
     }
 
